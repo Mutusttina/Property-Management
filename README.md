@@ -1,3 +1,3 @@
-# Property-Management
+# Property-Management for Speedhome
 
-### Welcome to the Property-Management API Let's see what's this api is about and how to setup it in your machine
+### Welcome to the Property-Management API for Speedhome, Let's see what's this api is all about and how to setup this project on your machine.
