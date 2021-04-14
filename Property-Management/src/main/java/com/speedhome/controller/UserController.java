@@ -33,7 +33,6 @@ public class UserController {
 	private JwtUtil jwtUtil;
 
 
-
 	@PostMapping("/authenticate")
 	public ResponseEntity<?> login(@RequestBody LoginRequest userInfo) {
 		authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(userInfo.getUsername(), userInfo.getPassword()));

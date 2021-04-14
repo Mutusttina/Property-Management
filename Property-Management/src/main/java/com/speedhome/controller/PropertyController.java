@@ -21,7 +21,6 @@ public class PropertyController {
 
     @PutMapping
     public void update(@RequestBody PropertyAddOrUpdateRequest property, @RequestParam("id") int propertyId){
-        System.out.println(propertyId);
         propertyService.updateProperty(property,propertyId);
     }
 
@@ -30,7 +29,7 @@ public class PropertyController {
         propertyService.approveProperty(propertyId);
     }
 
-    
+
     @PostMapping("/_search")
     public PropertySearchResponseWrapper search(@RequestBody PropertySearchRequest request){
        return propertyService.searchProperty(request);

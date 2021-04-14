@@ -61,13 +61,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		return authProvider;
 	}
 
-	@Bean
-	public AuthenticationEntryPoint unauthorizedEntryPoint() {
-		return (request, response, authException) -> response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
-	}
-
-
-
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 		auth.authenticationProvider(authenticationProvider());
@@ -87,7 +80,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 				.antMatchers("/property/hello").hasAuthority("ADMIN")
 					.and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
 
-				.and().exceptionHandling().authenticationEntryPoint(unauthorizedEntryPoint());
+				.and().exceptionHandling().authenticationEntryPoint(entryPoint);
 
 
 	 	http.addFilterBefore(jwtRequestFilter,UsernamePasswordAuthenticationFilter.class);

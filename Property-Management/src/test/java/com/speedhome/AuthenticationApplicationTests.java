@@ -1,6 +1,7 @@
 package com.speedhome;
 
 
+import com.speedhome.dao.PropertyCriteria;
 import com.speedhome.dao.PropertyRepository;
 import com.speedhome.dao.RoleRepository;
 import com.speedhome.dao.UserRepository;
@@ -8,6 +9,7 @@ import com.speedhome.entity.Category;
 import com.speedhome.entity.Property;
 import com.speedhome.entity.Role;
 import com.speedhome.entity.User;
+import com.speedhome.model.PropertySearchRequest;
 import com.speedhome.service.PropertyService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -35,8 +37,8 @@ class AuthenticationApplicationTests {
 	UserRepository userDao;
 	@Mock
 	PropertyRepository propertyDao;
-
-
+	@Mock
+	PropertyCriteria propertyDaoCriteria;
 
 	@Test
 	void addProperty() {
@@ -73,6 +75,44 @@ class AuthenticationApplicationTests {
 		property.setCategory(category);
 
 		when(propertyDao.save(Mockito.any())).thenReturn(property);
+	}
+
+	@Test
+	public void testSearchProperty(){
+		PropertySearchRequest request=new PropertySearchRequest();
+		request.setSearchString("Navsari");
+		request.setCatagoryId(2);
+		request.setSortBy("city");
+		request.setSortOrder("ASC");
+
+		Property property=new Property();
+		property.setId(1);
+		property.setPincode("396445");
+		property.setCity("Navsari");
+		property.setAddress("Any Addresss");
+		property.setState("Gujarat");
+
+		Category category=new Category();
+		category.setName("FLAT");
+		category.setId(2);
+
+		property.setCategory(category);
+
+		List<Property> list=new ArrayList<>();
+		list.add(property);
+		when(propertyDaoCriteria.getPropertiesWithSearch(request.getSortBy(),request.getSortOrder(),request.getRecordsPerPage(),request.getSearchString(),request.getCatagoryId(),request.getPageIndex())).thenReturn(list);
+
+
+	}
+
+
+	@Test
+	public void testAddUser(){
+		User user=new User();
+		user.setUsername("user");
+		user.setPassword("$2a$10$ZAUnie28lONHcWRgyfZPzeAodGamNUxcHngOj4nXtG0.FMF1uGVzy");
+		user.setEnabled(true);
+		when(userDao.save(user)).thenReturn(user);
 	}
 
 	@Test
