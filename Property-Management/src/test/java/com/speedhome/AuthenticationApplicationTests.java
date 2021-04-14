@@ -1,11 +1,14 @@
 package com.speedhome;
 
 
-import com.speedhome.dao.*;
+import com.speedhome.dao.PropertyRepository;
+import com.speedhome.dao.RoleRepository;
+import com.speedhome.dao.UserRepository;
 import com.speedhome.entity.Category;
 import com.speedhome.entity.Property;
 import com.speedhome.entity.Role;
-
+import com.speedhome.entity.User;
+import com.speedhome.service.PropertyService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
@@ -13,10 +16,12 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.mockito.junit.jupiter.MockitoSettings;
 import org.mockito.quality.Strictness;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+
+import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
 
 @SpringBootTest
@@ -30,8 +35,9 @@ class AuthenticationApplicationTests {
 	UserRepository userDao;
 	@Mock
 	PropertyRepository propertyDao;
-	@Mock
-	private PropertyCriteria propertyCriteria;
+	@Autowired
+	PropertyService propertyService;
+
 
 	@Test
 	void addProperty() {
@@ -71,13 +77,34 @@ class AuthenticationApplicationTests {
 	}
 
 	@Test
-	public void testDatabaseData() {
-		System.out.println("Testing database data");
-		List<Role> roles=roleDao.findAll();
-		int roleSize=roles.size();
-		assertEquals(roleSize,3);
-		assertEquals("admin",userDao.getUserByUsername("ADMIN").getUsername());
-		assertEquals("ADMIN",userDao.getUserByUsername("ADMIN").getRoles().get(0).getName());
+	public void testRoleTable() {
+		Role admin=new Role();
+		admin.setId(1);
+		admin.setName("ADMIN");
+		Role landlord=new Role();
+		admin.setId(1);
+		admin.setName("LANDLORD");
+		Role user=new Role();
+		admin.setId(1);
+		admin.setName("USER");
+
+		List<Role> roles=new ArrayList<>();
+		roles.add(admin);
+		roles.add(landlord);
+		roles.add(user);
+		when(roleDao.findAll()).thenReturn(roles);
+	}
+
+	@Test
+	public void testUserTable(){
+		User user=new User();
+		user.setUsername("admin");
+		user.setPassword("$2a$10$ZAUnie28lONHcWRgyfZPzeAodGamNUxcHngOj4nXtG0.FMF1uGVzy");
+		user.setEnabled(true);
+		user.setId(1);
+		List<User> users=userDao.findAll();
+		users.add(user);
+		when(userDao.findAll()).thenReturn(users);
 	}
 
 
