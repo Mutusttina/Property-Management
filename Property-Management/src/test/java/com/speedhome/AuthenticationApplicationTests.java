@@ -35,8 +35,7 @@ class AuthenticationApplicationTests {
 	UserRepository userDao;
 	@Mock
 	PropertyRepository propertyDao;
-	@Autowired
-	PropertyService propertyService;
+
 
 
 	@Test

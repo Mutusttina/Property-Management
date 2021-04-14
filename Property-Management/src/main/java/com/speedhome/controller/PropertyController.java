@@ -30,11 +30,7 @@ public class PropertyController {
         propertyService.approveProperty(propertyId);
     }
 
-    @GetMapping("/hello")
-    public String smtg(){
-        return "Hello";
-    }
-
+    
     @PostMapping("/_search")
     public PropertySearchResponseWrapper search(@RequestBody PropertySearchRequest request){
        return propertyService.searchProperty(request);
