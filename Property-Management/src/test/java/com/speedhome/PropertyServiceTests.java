@@ -1,5 +1,4 @@
 package com.speedhome;
-
 import com.speedhome.dao.CategoryRepository;
 import com.speedhome.dao.PropertyCriteria;
 import com.speedhome.dao.PropertyRepository;
@@ -100,6 +99,8 @@ public class PropertyServiceTests {
         assertEquals(property, obj);
     }
 
+
+
     @org.junit.Test
     public void SearchProperty() {
         PropertySearchRequest request = new PropertySearchRequest();
@@ -111,6 +112,16 @@ public class PropertyServiceTests {
         when(propertyDaoCriteria.getPropertiesWithSearch(request.getSortBy(), request.getSortOrder(), request.getRecordsPerPage(), request.getSearchString(), request.getCatagoryId(), request.getPageIndex())).thenReturn(list);
         PropertySearchResponseWrapper wrapper = propertyService.searchProperty(request);
         assertNotNull(wrapper);
+    }
+
+
+
+    @org.junit.Test
+    public void approveProperty() {
+        property.setApproved(true);
+        when(propertyDao.findById(property.getId())).thenReturn(Optional.of(property));
+        when(propertyDao.save(property)).thenReturn(property);
+        propertyService.approveProperty(property.getId());
     }
 
 }
