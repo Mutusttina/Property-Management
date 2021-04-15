@@ -26,8 +26,8 @@ public class PropertyController {
     }
 
     @PostMapping("/_approve/{propertyId}")
-    public void approve(@PathVariable int propertyId){
-        propertyService.approveProperty(propertyId);
+    public Property approve(@PathVariable int propertyId){
+        return propertyService.approveProperty(propertyId);
     }
 
 

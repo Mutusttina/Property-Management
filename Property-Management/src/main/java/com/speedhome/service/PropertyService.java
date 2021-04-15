@@ -14,5 +14,5 @@ public interface PropertyService {
 
     PropertySearchResponseWrapper searchProperty(PropertySearchRequest request);
 
-    void approveProperty(int propertyId);
+    Property approveProperty(int propertyId);
 }

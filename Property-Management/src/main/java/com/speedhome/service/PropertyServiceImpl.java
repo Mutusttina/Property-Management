@@ -64,10 +64,10 @@ public class PropertyServiceImpl implements  PropertyService {
     }
 
     @Override
-    public void approveProperty(int propertyId) {
+    public Property approveProperty(int propertyId) {
         Property property=dao.findById(propertyId).get();
         property.setApproved(true);
-        dao.save(property);
+        return dao.save(property);
     }
 
 

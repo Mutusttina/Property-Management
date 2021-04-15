@@ -121,7 +121,8 @@ public class PropertyServiceTests {
         property.setApproved(true);
         when(propertyDao.findById(property.getId())).thenReturn(Optional.of(property));
         when(propertyDao.save(property)).thenReturn(property);
-        propertyService.approveProperty(property.getId());
+       Property obj= propertyService.approveProperty(property.getId());
+       assertNotNull(obj);
     }
 
 }
