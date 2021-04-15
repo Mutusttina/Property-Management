@@ -80,13 +80,13 @@ public class PropertyServiceTests {
         Mockito.when(UserUtils.getLoggedInUserName()).thenReturn("admin");
         Mockito.when(categoryRepository.findById(category.getId())).thenReturn(Optional.of(category));
         Mockito.when(userRepository.getUserByUsername(UserUtils.getLoggedInUserName())).thenReturn(user);
-
+        when(propertyDao.save(property)).thenReturn(property);
         PowerMockito.verifyStatic(UserUtils.class);
         UserUtils.getLoggedInUserName();
 
         PropertyAddOrUpdateRequest request = new PropertyAddOrUpdateRequest(property.getAddress(), property.getCategory().getId(), property.getCity(), property.getState(), property.getPincode());
-        Property obj = propertyService.addProperty(request);
-        // assertNotNull(obj);
+         propertyService.addProperty(request);
+         assertEquals("Akshar Township",property.getAddress());
     }
 
     @org.junit.Test
