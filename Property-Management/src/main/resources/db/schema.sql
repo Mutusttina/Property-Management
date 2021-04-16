@@ -3,8 +3,6 @@ CREATE DATABASE if not exists speedhome;
 use speedhome;
 
 
-
-
 CREATE TABLE  if not exists `categories` (
   `id` int NOT NULL AUTO_INCREMENT,
   `name` varchar(45) DEFAULT NULL,
@@ -19,10 +17,12 @@ CREATE TABLE `properties` (
   `state` varchar(45) DEFAULT NULL,
   `pincode` varchar(45) DEFAULT NULL,
   `category_id` int DEFAULT NULL,
+  `approved` bit(1) DEFAULT NULL,
+  `user_id` int DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `FKqus62r1cfmmdppyj6bvhkqtav` (`category_id`),
   CONSTRAINT `FKqus62r1cfmmdppyj6bvhkqtav` FOREIGN KEY (`category_id`) REFERENCES `categories` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 CREATE TABLE  if not exists `roles` (
   `id` int NOT NULL AUTO_INCREMENT,
