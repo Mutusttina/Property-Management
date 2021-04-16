@@ -8,6 +8,7 @@
   - Add Property 
   - Update Property
   - Search Property
+  - Approve Property
 ```
  ```
  User API 
