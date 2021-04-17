@@ -13,6 +13,7 @@
  ```
  User API 
   - SignUp User
+  - SignIn User
 ```
 ## How to Setup Project in your machine
 
