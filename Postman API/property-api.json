@@ -1,0 +1,126 @@
+{
+	"info": {
+		"_postman_id": "1cb4e135-a546-41a8-a351-6a6637457698",
+		"name": "property",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "add",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyIiwiZXhwIjoxNjE4MjU3MjYwLCJpYXQiOjE2MTgyMjEyNjB9.5l5xXtVJgZw2CEuw-lpOpXZOkE904pmQB83o73zOLH8",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"address\":\"smtg street, surat, gujarat\",\r\n    \"category\":2\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8081/property",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"property"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": null
+			},
+			"response": []
+		},
+		{
+			"name": "search",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTYxODMyNDU5OSwiaWF0IjoxNjE4Mjg4NTk5fQ.r3meWZQCi6VAWu3TTaHSZF7ezec_-UW9w41PQkoOKWM",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"searchString\":\"Navsari\",\r\n    \"catagoryId\":1,\r\n    \"sortOrder\":\"ASC\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8081/property/_search",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"property",
+						"_search"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "approve",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyIiwiZXhwIjoxNjE4MzM2NDM4LCJpYXQiOjE2MTgzMDA0Mzh9.iGbuwAGbpipJ-tIsuMhIHqZHKcElXyG_OereYd9ZD-o",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8081/property/_approve/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"property",
+						"_approve",
+						"1"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
