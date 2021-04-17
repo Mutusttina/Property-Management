@@ -22,7 +22,7 @@ CREATE TABLE `properties` (
   PRIMARY KEY (`id`),
   KEY `FKqus62r1cfmmdppyj6bvhkqtav` (`category_id`),
   CONSTRAINT `FKqus62r1cfmmdppyj6bvhkqtav` FOREIGN KEY (`category_id`) REFERENCES `categories` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 CREATE TABLE  if not exists `roles` (
   `id` int NOT NULL AUTO_INCREMENT,
