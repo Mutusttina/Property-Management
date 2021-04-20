@@ -38,13 +38,12 @@ public class UserController {
 		authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(userInfo.getUsername(), userInfo.getPassword()));
 		final UserDetails userDetails = userDetailsService.loadUserByUsername(userInfo.getUsername());
 		final String jwt = jwtUtil.generateToken(userDetails);
-
 		return ResponseEntity.ok(new LoginResponse(jwt));
 	}
 
 	@PostMapping
-	public void addUser(@RequestBody AddUsersRequest user){
-		userService.addUser(user);
+	public User addUser(@RequestBody AddUsersRequest user){
+		return  userService.addUser(user);
 	}
 
 

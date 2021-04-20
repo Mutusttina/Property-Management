@@ -1,4 +1,4 @@
-package com.speedhome;
+package com.speedhome.service;
 import com.speedhome.dao.CategoryRepository;
 import com.speedhome.dao.PropertyCriteria;
 import com.speedhome.dao.PropertyRepository;
@@ -33,7 +33,7 @@ import static org.mockito.Mockito.when;
 
 @RunWith(PowerMockRunner.class)
 @PrepareForTest(UserUtils.class)
-public class PropertyServiceTests {
+public class PropertyServiceTest {
     @Mock
     PropertyRepository propertyDao;
     @Mock
@@ -113,8 +113,6 @@ public class PropertyServiceTests {
         PropertySearchResponseWrapper wrapper = propertyService.searchProperty(request);
         assertNotNull(wrapper);
     }
-
-
 
     @org.junit.Test
     public void approveProperty() {

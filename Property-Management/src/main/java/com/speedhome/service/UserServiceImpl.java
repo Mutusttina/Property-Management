@@ -20,12 +20,12 @@ public class UserServiceImpl implements UserService {
     RoleRepository roleRepository;
 
     @Override
-    public void addUser(AddUsersRequest request) {
+    public User addUser(AddUsersRequest request) {
         User user=new User();
         user.setEnabled(request.isEnabled());
         user.setPassword(pwdEncoder.encode(request.getPassword()));
         user.getRoles().add(roleRepository.findById(request.getRoleId()).get());
         user.setUsername(request.getUsername());
-        dao.save(user);
+        return dao.save(user);
     }
 }

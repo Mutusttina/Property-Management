@@ -6,6 +6,10 @@ public class PropertySearchResponseWrapper {
 
     private List<PropertySearchResponse> properties;
 
+    public PropertySearchResponseWrapper(List<PropertySearchResponse> properties) {
+        this.properties = properties;
+    }
+
     public List<PropertySearchResponse> getProperties() {
         return properties;
     }
@@ -14,7 +18,4 @@ public class PropertySearchResponseWrapper {
         this.properties = properties;
     }
 
-    public PropertySearchResponseWrapper(List<PropertySearchResponse> properties) {
-        this.properties = properties;
-    }
 }

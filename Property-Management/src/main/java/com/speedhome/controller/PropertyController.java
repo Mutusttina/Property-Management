@@ -1,8 +1,8 @@
 package com.speedhome.controller;
+
 import com.speedhome.entity.Property;
 import com.speedhome.model.PropertyAddOrUpdateRequest;
 import com.speedhome.model.PropertySearchRequest;
-import com.speedhome.model.PropertySearchResponse;
 import com.speedhome.model.PropertySearchResponseWrapper;
 import com.speedhome.service.PropertyService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,8 +35,5 @@ public class PropertyController {
     public PropertySearchResponseWrapper search(@RequestBody PropertySearchRequest request){
        return propertyService.searchProperty(request);
     }
-
-
-
 
 }
