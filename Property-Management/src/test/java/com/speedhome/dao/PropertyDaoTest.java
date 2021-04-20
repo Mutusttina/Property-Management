@@ -109,13 +109,4 @@ public class PropertyDaoTest {
         Mockito.doNothing().when(propertyDao).deleteById(property.getId());
         propertyDao.deleteById(property.getId());
     }
-
-
-
-
-
-
-
-
-
 }

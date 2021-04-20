@@ -60,6 +60,17 @@ public class UserDaoTest {
     }
 
     @org.junit.Test
+    public void findUserByUserName(){
+        Mockito.when(userDao.getUserByUsername(user.getUsername())).thenReturn(user);
+        User result= userDao.getUserByUsername(user.getUsername());
+
+        assertNotNull(result);
+        assertEquals("user",result.getUsername());
+    }
+
+
+
+    @org.junit.Test
     public void findUserById(){
         Mockito.when(userDao.findById(user.getId())).thenReturn(Optional.of(user));
         User result= userDao.findById(user.getId()).get();
