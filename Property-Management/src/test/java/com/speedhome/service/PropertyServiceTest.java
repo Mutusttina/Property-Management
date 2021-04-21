@@ -1,4 +1,5 @@
 package com.speedhome.service;
+
 import com.speedhome.dao.CategoryRepository;
 import com.speedhome.dao.PropertyCriteria;
 import com.speedhome.dao.PropertyRepository;
@@ -11,7 +12,6 @@ import com.speedhome.model.PropertyAddOrUpdateRequest;
 import com.speedhome.model.PropertySearchRequest;
 import com.speedhome.model.PropertySearchResponseWrapper;
 import com.speedhome.security.UserUtils;
-import com.speedhome.service.PropertyServiceImpl;
 import org.junit.Before;
 import org.junit.runner.RunWith;
 import org.mockito.BDDMockito;
@@ -98,8 +98,6 @@ public class PropertyServiceTest {
         Property obj = propertyService.updateProperty(request, property.getId());
         assertEquals(property, obj);
     }
-
-
 
     @org.junit.Test
     public void SearchProperty() {

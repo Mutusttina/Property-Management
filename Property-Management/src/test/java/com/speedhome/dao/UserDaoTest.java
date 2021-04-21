@@ -68,8 +68,6 @@ public class UserDaoTest {
         assertEquals("user",result.getUsername());
     }
 
-
-
     @org.junit.Test
     public void findUserById(){
         Mockito.when(userDao.findById(user.getId())).thenReturn(Optional.of(user));

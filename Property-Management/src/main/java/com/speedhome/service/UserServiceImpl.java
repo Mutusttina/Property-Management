@@ -4,7 +4,6 @@ import com.speedhome.dao.RoleRepository;
 import com.speedhome.dao.UserRepository;
 import com.speedhome.entity.User;
 import com.speedhome.model.AddUsersRequest;
-import com.speedhome.security.UserUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
