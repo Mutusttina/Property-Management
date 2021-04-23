@@ -16,7 +16,6 @@ import com.speedhome.security.MyEntryPoint;
 import com.speedhome.security.UserDetailsServiceImpl;
 import com.speedhome.service.PropertyService;
 import org.hamcrest.Matchers;
-import org.junit.Before;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -36,7 +35,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @WebMvcTest(PropertyController.class)
 @AutoConfigureMockMvc
-public class PropertyMVCTest {
+public class PropertyMockMvcTest {
 
     @Autowired
     private MockMvc mockMvc;
@@ -114,7 +113,7 @@ public class PropertyMVCTest {
 
         String jsonString = mapper.writeValueAsString(request);
 
-        Mockito.when(propertyService.updateProperty(request,property.getId())).thenReturn(property);
+        Mockito.when(propertyService.updateProperty(Mockito.any(),Mockito.anyInt())).thenReturn(property);
 
         mockMvc.perform(MockMvcRequestBuilders.put("/properties")
                 .param("id", String.valueOf(property.getId()))
@@ -149,7 +148,7 @@ public class PropertyMVCTest {
 
         PropertySearchResponseWrapper serviceResult=new PropertySearchResponseWrapper(list);
 
-        Mockito.when(propertyService.searchProperty(request)).thenReturn(serviceResult);
+        Mockito.when(propertyService.searchProperty(Mockito.any())).thenReturn(serviceResult);
 
         mockMvc.perform(MockMvcRequestBuilders.post("/properties/_search")
                 .contentType(MediaType.APPLICATION_JSON)

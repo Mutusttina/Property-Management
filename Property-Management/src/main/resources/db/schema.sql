@@ -1,4 +1,5 @@
--- create database  if not exists speedhome;
+
+ -- create database  if not exists speedhome;
 
 CREATE schema IF NOT EXISTS speedhome;
 

@@ -53,4 +53,5 @@ public class PropertyAddOrUpdateRequest {
     public void setState(String state) {
         this.state = state;
     }
+
 }

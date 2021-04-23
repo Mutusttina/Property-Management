@@ -45,13 +45,19 @@ public class PropertyServiceTest {
     @InjectMocks
     PropertyServiceImpl propertyService;
 
-    Property property = new Property();
-    Role admin = new Role();
-    User user = new User();
-    Category category = new Category();
+    Property property = null;
+    Role admin = null;
+    User user = null;
+    Category category = null;
 
     @Before
     public void init() {
+
+       property = new Property();
+       admin = new Role();
+         user = new User();
+         category = new Category();
+
         property.setId(1);
         property.setAddress("Akshar Township");
         property.setCity("Navsari");
@@ -77,15 +83,16 @@ public class PropertyServiceTest {
         BDDMockito.given(UserUtils.getLoggedInUserName()).willReturn("admin");
 
         Mockito.when(UserUtils.getLoggedInUserName()).thenReturn("admin");
-        Mockito.when(categoryRepository.findById(category.getId())).thenReturn(Optional.of(category));
+        Mockito.when(categoryRepository.findById(Mockito.anyInt())).thenReturn(Optional.of(category));
         Mockito.when(userRepository.getUserByUsername(UserUtils.getLoggedInUserName())).thenReturn(user);
-        when(propertyDao.save(property)).thenReturn(property);
+        when(propertyDao.save(Mockito.any())).thenReturn(property);
         PowerMockito.verifyStatic(UserUtils.class);
         UserUtils.getLoggedInUserName();
 
         PropertyAddOrUpdateRequest request = new PropertyAddOrUpdateRequest(property.getAddress(), property.getCategory().getId(), property.getCity(), property.getState(), property.getPincode());
-         propertyService.addProperty(request);
-         assertEquals("Akshar Township",property.getAddress());
+        Property result= propertyService.addProperty(request);
+        assertNotNull(result);
+        assertEquals(property.getAddress(),result.getAddress());
     }
 
     @org.junit.Test
@@ -95,8 +102,9 @@ public class PropertyServiceTest {
         when(propertyDao.save(property)).thenReturn(property);
         PropertyAddOrUpdateRequest request = new PropertyAddOrUpdateRequest(property.getAddress(), property.getCategory().getId(), property.getCity(), property.getState(), property.getPincode());
 
-        Property obj = propertyService.updateProperty(request, property.getId());
-        assertEquals(property, obj);
+        Property result = propertyService.updateProperty(request, property.getId());
+        assertEquals(property.getId(),result.getId());
+        assertEquals(property.getAddress(),result.getAddress());
     }
 
     @org.junit.Test
@@ -117,8 +125,8 @@ public class PropertyServiceTest {
         property.setApproved(true);
         when(propertyDao.findById(property.getId())).thenReturn(Optional.of(property));
         when(propertyDao.save(property)).thenReturn(property);
-       Property obj= propertyService.approveProperty(property.getId());
-       assertNotNull(obj);
+       Property result= propertyService.approveProperty(property.getId());
+       assertNotNull(result);
     }
 
 }

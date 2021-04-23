@@ -20,7 +20,7 @@ public class User {
 	private String password;
 	private boolean enabled;
 
-	@ManyToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinColumn(name="role_id")
 	@JsonIgnoreProperties({ "users" })
 	private List<Role> roles=new ArrayList<>();

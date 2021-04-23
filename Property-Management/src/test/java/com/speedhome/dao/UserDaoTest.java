@@ -1,90 +1,105 @@
 package com.speedhome.dao;
 
-import com.speedhome.dao.UserRepository;
 import com.speedhome.entity.Role;
 import com.speedhome.entity.User;
-import org.junit.Before;
-import org.junit.runner.RunWith;
-import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
 
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-@RunWith(MockitoJUnitRunner.class)
+@SpringBootTest
+@ActiveProfiles("test")
 public class UserDaoTest {
-    
-    @Mock
+
+    @Autowired
     private UserRepository userDao;
 
-    
-    User user=new User();
-    Role role=new Role();
-    @Before
-    public void init(){
+    @Autowired
+    private RoleRepository roleRepository;
 
+
+    User user=null;
+    Role role=null;
+    @BeforeEach
+    public void init(){
+        user=new User();
+        role=new Role();
 
         role.setId(1);
         role.setName("ADMIN");
 
         user.setUsername("user");
-        user.setPassword("$2a$10$ZAUnie28lONHcWRgyfZPzeAodGamNUxcHngOj4nXtG0.FMF1uGVzy");
+        user.setPassword("123");
         user.setEnabled(true);
         user.getRoles().add(role);
 
+        roleRepository.save(role);
     }
 
 
-    @org.junit.Test
+    @Test
     public void saveUser(){
-        Mockito.when(userDao.save(user)).thenReturn(user);
+      
         User result=userDao.save(user);
-
         assertNotNull(result);
-       assertEquals(user.getId(),result.getId());
-
+        assertEquals(user.getId(),result.getId());
     }
 
-    @org.junit.Test
+    @Test
     public void updateUser(){
-       user.setUsername("sagar");
-        Mockito.when(userDao.save(user)).thenReturn(user);
-        User result= userDao.save(user);
+      
 
-        assertNotNull(result);
-        assertEquals(user.getId(),result.getId());
-        assertEquals("sagar",result.getUsername());
+       User savedUser= userDao.save(user);
+        assertEquals("user",savedUser.getUsername());
+
+        savedUser.setUsername("sagar");
+        User updatedUser= userDao.save(savedUser);
+
+        assertNotNull(updatedUser);
+        assertEquals(savedUser.getId(),updatedUser.getId());
+        assertEquals("sagar",updatedUser.getUsername());
     }
 
-    @org.junit.Test
+    @Test
     public void findUserByUserName(){
-        Mockito.when(userDao.getUserByUsername(user.getUsername())).thenReturn(user);
-        User result= userDao.getUserByUsername(user.getUsername());
+        userDao.deleteAll();
+      
+        User savedUser= userDao.save(user);
+        System.out.println(userDao.findAll().size());
+        userDao.findAll().forEach(it-> System.out.println(it.getUsername()));
+        User result= userDao.getUserByUsername(savedUser.getUsername());
 
         assertNotNull(result);
-        assertEquals("user",result.getUsername());
+        assertEquals(savedUser.getUsername(),result.getUsername());
     }
 
-    @org.junit.Test
+    @Test
     public void findUserById(){
-        Mockito.when(userDao.findById(user.getId())).thenReturn(Optional.of(user));
-        User result= userDao.findById(user.getId()).get();
-
-        assertNotNull(result);
-        assertEquals(user.getId(),result.getId());
+      
+        int id=userDao.save(user).getId();
+        try {
+            User result = userDao.findById(id).get();
+            assertNotNull(result);
+            assertEquals(id,result.getId());
+        }catch (NoSuchElementException exception){
+            System.out.println("cannot find element");
+            exception.printStackTrace();
+        }
     }
 
-    @org.junit.Test
+    @Test
     public void deleteUser(){
-        Mockito.doNothing().when(userDao).deleteById(user.getId());
-        userDao.deleteById(user.getId());
+      
+        int id=userDao.save(user).getId();
+        userDao.deleteById(id);
+        assertEquals(Optional.empty(),userDao.findById(id));
     }
-
-
-
-
 
 }

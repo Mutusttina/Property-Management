@@ -1,64 +1,61 @@
 package com.speedhome.dao;
 
-import com.speedhome.dao.RoleRepository;
 import com.speedhome.entity.Role;
-import org.junit.Before;
-import org.junit.runner.RunWith;
-import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
 
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-@RunWith(MockitoJUnitRunner.class)
+@SpringBootTest
+@ActiveProfiles("test")
 public class RoleDaoTest {
 
-    @Mock
+    @Autowired
     RoleRepository roleDao;
 
-    Role role=new Role();
+    Role role=null;
 
-    @Before
+    @BeforeEach
     public void init(){
+        role=new Role();
         role.setName("ADMIN");
         role.setId(1);
     }
 
-    @org.junit.Test
+    @Test
     public void addRole(){
-        Mockito.when(roleDao.save(role)).thenReturn(role);
         Role result=roleDao.save(role);
         assertNotNull(result);
         assertEquals("ADMIN",result.getName());
     }
 
-    @org.junit.Test
+    @Test
     public void updateRole(){
-        role.setId(2);
-        Mockito.when(roleDao.save(role)).thenReturn(role);
+        role.setName("USER");
         Role result=roleDao.save(role);
         assertNotNull(result);
-        assertEquals(2,result.getId());
+        assertEquals(role.getName(),result.getName());
     }
 
-    @org.junit.Test
+    @Test
     public void findRoleById(){
-        Mockito.when(roleDao.findById(role.getId())).thenReturn(Optional.of(role));
+        roleDao.save(role);
         Role result=roleDao.findById(role.getId()).get();
         assertNotNull(result);
         assertEquals(role.getId(),result.getId());
     }
 
-    @org.junit.Test
+    @Test
     public void deleteRole(){
-        Mockito.doNothing().when(roleDao).deleteById(role.getId());
-        roleDao.deleteById(role.getId());
+        int id=roleDao.save(role).getId();
+        roleDao.deleteById(id);
+        assertEquals(Optional.empty(), roleDao.findById(id));
     }
-
-
-
-
 
 }

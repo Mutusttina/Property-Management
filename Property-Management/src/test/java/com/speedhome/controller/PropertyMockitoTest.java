@@ -24,7 +24,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @RunWith(MockitoJUnitRunner.class)
-public class PropertyControllerTest {
+public class PropertyMockitoTest {
 
     @InjectMocks
     private PropertyController propertyController;
